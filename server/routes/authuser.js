@@ -46,15 +46,8 @@ router.post('/login', (req, res, next) => {
                 message: `email or password is incorrect!`
             })
         }
-        const token = jwt.sign({ email: dbUser.email, userId: dbUser._id }, 'mean_course_practise', {
-            expiresIn: '10',
-            algorithm: 'HS512'
-        });
-        const refresh_tk = jwt.sign({email: dbUser.email}, 'refresh_token_key', {
-            algorithm: 'HS256',
-            expiresIn: '3hr'
-        });
-        res.set('refresh_token', JSON.stringify(refresh_tk));
+        const token = createToken(dbUser.email, dbUser._id)
+
         res.status(200).json({
             token: token
         })
@@ -65,4 +58,11 @@ router.post('/login', (req, res, next) => {
         })
     });
 })
+
+function createToken(email, userId) {
+    return jwt.sign({email: email, userId: userId}, 'mean_course_practise', {
+        expiresIn: '3hr',
+        algorithm: 'HS256'
+    });
+};
 module.exports = router;

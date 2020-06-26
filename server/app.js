@@ -7,13 +7,11 @@ const userRoutes = require('./routes/authuser');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-let err;
 const uri = "mongodb+srv://aungsoe:8j03RIwOkzhmoAm0@cluster0-wdlhm.mongodb.net/mean_course";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 .then(() => console.log('Connected To Database'))
 .catch(err => {
     console.log('Connection failed!', err);
-    err = err;
 });
 
 app.use(bodyParser.json());
