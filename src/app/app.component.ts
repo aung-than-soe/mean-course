@@ -1,3 +1,4 @@
+import { Post } from './posts/post.model';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mean-course';
+
+  posts: Post[] = [];
+
+  onPostAdded(post: Post) {
+    console.log('Event Post', post);
+    this.posts.push(post);
+  }
 }
